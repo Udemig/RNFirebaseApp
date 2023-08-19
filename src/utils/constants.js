@@ -3,5 +3,6 @@ export const colors={
     secondary:'aqua',
     thirdyColor:'gray',
     textColor:'white',
-    whiteColor:'#fff'
+    whiteColor:'#fff',
+    redColor:'#AA0000'
 }

@@ -1,126 +1,86 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import HeaderText from '../../components/CoreComponents/Header/HeaderText';
+import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {colors} from '../../utils/constants';
-import CustomInput from '../../components/CustomInput/CustomInput';
-import LicanceAgreement from '../../components/LicanceAgreement';
-import CustomButton from '../../components/CustomButton';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import AddPhoto from '../../components/AddPhoto';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
+import SpecialInput from '../../components/SpecialInput';
+import SpeacialButton from '../../components/SpeacialButton';
+import LicanceAgree from '../../components/LicanceAgree';
+
+//En dışta bir kapsayıcı
+//içerde 2 bölünmüş 2 adet view
+//alt vide içinde inpıtların ve butonun tuutlduğu ikcini bir view
+
 const SignUpScreen = () => {
-  //console.log(auth().currentUser);
-
-  const [photoGallery, setPhotoGallery] = useState(null);
-
-  const [newUser, setNewUser] = useState({
+  const [newUserInfo, setNewUserInfo] = useState({
     userName: '',
     userEmail: '',
     userPassword: '',
+    userJob: '',
+    userExperience: '',
     userPhoto: '',
   });
 
-  const onChangeText = (key, value) => {
-    setNewUser({...newUser, [key]: value});
+  const onChangeNewUserState = (key, value) => {
+    setNewUserInfo({...newUserInfo, [key]: value});
   };
 
-  const choosePhotoGallry = async () => {
-    const result = await launchImageLibrary();
-  
-      //setPhotoGallery(result.assets[0].uri)
-      setNewUser({...newUser, userPhoto: `${result.assets[0].uri}`});
-    
-  };
-  console.log(newUser);
-  const saveUserWithUnId = () => {
-    firestore()
-      .collection('Users')
-      .add(newUser)
-      .then(() => {
-        console.log('User added!');
-      });
-  };
-
-  const saveNewUser = userId => {
-    firestore()
-      .collection('users')
-      .doc(userId)
-      .set(newUser)
-      .then(() => {
-        console.log('User added!');
-      });
-  };
-
-  const handleSignUp = () => {
-    auth()
-      .createUserWithEmailAndPassword(newUser.userEmail, newUser.userPassword)
-      .then(() => {
-        console.log('User account created & signed in!');
-        setNewUser({...newUser, userId: auth().currentUser.uid});
-        //saveNewUser(auth().currentUser.uid)
-        saveUserWithUnId();
-        setNewUser({
-          userName: '',
-          userEmail: '',
-          userPassword: '',
-          userPhoto: '',
-        });
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
-      });
-  };
+ 
 
   return (
+    //En dış kapsayıcı
     <View style={styles.mainContainer}>
-      <View style={styles.top}>
-        <HeaderText title={'İş Hesabı'} />
-      </View>
-      <View style={styles.bottom}>
-        <View style={styles.bottomMain}>
-          <View style={styles.inputBox}>
-            <CustomInput
-              value={newUser.userName}
-              onChangeText={text => onChangeText('userName', text)}
-              placeHolder={'Kullanıcı Adı Girin'}
-            />
-            <CustomInput
-              value={newUser.userEmail}
-              onChangeText={text => onChangeText('userEmail', text)}
-              placeHolder={'Email Girin'}
-            />
-            <CustomInput
-              value={newUser.userPassword}
-              onChangeText={text => onChangeText('userPassword', text)}
-              placeHolder={'Şifre Girin'}
-            />
-            <View style={styles.imageBox}>
-              <AddPhoto
-                onPress={() => choosePhotoGallry()}
-                source={newUser.userPhoto}
-              />
-              <CustomButton
-                onPress={() => choosePhotoGallry('Fotoğraf Seç')}
-                title={'Fotoğraf Seç'}
-                style={{with: 50}}
-              />
-            </View>
-          </View>
+      {/*ikiye bölünmüş yapıpnın üstü ksımı*/}
 
-          <View style={styles.bottomMainBottom}>
-            <LicanceAgreement />
-            <CustomButton onPress={() => handleSignUp()} title={'Kayıt Ol'} />
-            <View></View>
-          </View>
+      <View style={styles.topContainer}>
+        <Text style={styles.topContainerTitle}>
+          Hala Hesabın , Yok mu ? Yeni Bir
+        </Text>
+        <SpeacialButton buttonTitle={'Hesab Oluştur'} style={{marginTop: 10}} />
+      </View>
+
+      {/*ikiye bölünmüş yapıpnın alt kısmı ksımı*/}
+
+      <View style={styles.bottomContainer}>
+        <View style={styles.inputContainer}>
+          <SpecialInput
+            placeholder={'Benzersiz Kullanıcı adın'}
+            onChangeText={text => onChangeNewUserState('userName', text)}
+            value={newUserInfo.userName}
+          />
+          <SpecialInput
+            placeholder={'E-Mail Adresini Gir'}
+            onChangeText={text => onChangeNewUserState('userEmail', text)}
+            value={newUserInfo.userEmail}
+          />
+
+          <SpecialInput
+            placeholder={'Çalıştığı Alan'}
+            onChangeText={text => onChangeNewUserState('userJob', text)}
+            value={newUserInfo.userJob}
+          />
+
+          <SpecialInput
+            placeholder={'Tecrübe Yılı'}
+            onChangeText={text => onChangeNewUserState('userExperience', text)}
+            value={newUserInfo.userExperience}
+          />
+
+          <SpecialInput
+            placeholder={'Profil Fotoğrafı'}
+            onChangeText={text => onChangeNewUserState('userPhoto', text)}
+            value={newUserInfo.userPhoto}
+          />
+
+          <SpecialInput
+            placeholder={'Bir Şifre Belirle'}
+            onChangeText={text => onChangeNewUserState('userPassword', text)}
+            value={newUserInfo.userPassword}
+          />
+        </View>
+
+        <View style={styles.bottomContainerBox}>
+          <LicanceAgree />
+          <SpeacialButton buttonTitle={'Kayıt Ol'} />
         </View>
       </View>
     </View>
@@ -132,36 +92,35 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: 'orange',
+  },
+  topContainer: {
     backgroundColor: colors.whiteColor,
-  },
+    flex: 3,
 
-  top: {
-    flex: 1,
-  },
-  bottom: {
-    backgroundColor: colors.primaryColor,
-    flex: 2,
-  },
-  bottomMain: {
-    marginLeft: 50,
-    width: '80%',
-  },
-  inputBox: {
-    width: '70%',
-    gap: 30,
-    marginTop: 75,
-  },
-
-  bottomMainBottom: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 15,
-    gap: 15,
-    marginTop: 20,
   },
 
-  imageBox: {
-    flexDirection: 'row',
+  topContainerTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  bottomContainer: {
+    backgroundColor: colors.primaryColor,
+    flex: 10,
+  },
+
+  inputContainer: {
+    marginTop: 15,
+    gap: 15,
+    marginHorizontal: 40,
+  },
+
+  bottomContainerBox: {
+    marginTop: 15,
+    alignItems: 'center',
     gap: 15,
   },
 });
