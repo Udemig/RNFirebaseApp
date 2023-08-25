@@ -1,12 +1,16 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import {colors} from '../../utils/constants';
 import SpeacialButton from '../../components/SpeacialButton';
-import SpecialIcon from '../../components/SpecialIcon';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import InfoCard from '../../components/InfoCard';
 import Avatar from '../../components/Avatar';
+import { useNavigation } from '@react-navigation/native';
+import { Data } from '../../context/DataContext';
 const ProfileScreen = () => {
+const {setUser}=useContext(Data)
+  const navigation=useNavigation()
   return (
     <View style={styles.wrapper}>
       <View style={styles.topBox}>
@@ -31,6 +35,7 @@ const ProfileScreen = () => {
 
           <Text style={styles.userName}>Kullanıcı Adı</Text>
           <SpeacialButton
+          onPress={()=>setUser(false)}
             buttonTitle={'Çıkış Yap'}
             style={{backgroundColor: colors.redColor}}
           />

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>287171806622-9q8n0hge3qpb9a4hv9nir1q3755ji6ma.apps.googleusercontent.com</string>
+	<string>168990602624-pmd1v5g899fvjj0civiqnpb5rhbb67qc.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.287171806622-9q8n0hge3qpb9a4hv9nir1q3755ji6ma</string>
+	<string>com.googleusercontent.apps.168990602624-pmd1v5g899fvjj0civiqnpb5rhbb67qc</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB5-aPxo_VvpemtR9Dhf8lba9p8BCzJ83E</string>
+	<string>AIzaSyDS8z6EBi2dbKPGD49wlCH8AeD3dZfKfYU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>287171806622</string>
+	<string>168990602624</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.reactjs.native.example.FirebaseApp</string>
 	<key>PROJECT_ID</key>
-	<string>reactclifirebase</string>
+	<string>reactnativeseasonthree</string>
 	<key>STORAGE_BUCKET</key>
-	<string>reactclifirebase.appspot.com</string>
+	<string>reactnativeseasonthree.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:287171806622:ios:4548bb6824b90fe978028f</string>
+	<string>1:168990602624:ios:09f952290d78c65828bd65</string>
 </dict>
 </plist>
